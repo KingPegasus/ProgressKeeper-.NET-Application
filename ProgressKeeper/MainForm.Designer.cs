@@ -29,48 +29,50 @@ namespace ProgressKeeper
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.TabControl1 = new System.Windows.Forms.TabControl();
-            this.tabAddProgress = new System.Windows.Forms.TabPage();
+            this.DateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.TabHistory = new System.Windows.Forms.TabControl();
+            this.TabAddProgress = new System.Windows.Forms.TabPage();
             this.InsertProgress = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabShowHistory = new System.Windows.Forms.TabPage();
-            this.TabControl1.SuspendLayout();
-            this.tabAddProgress.SuspendLayout();
+            this.TabHistory.SuspendLayout();
+            this.TabAddProgress.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // DateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(9, 3);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 2;
+            this.DateTimePicker1.CustomFormat = "";
+            this.DateTimePicker1.Location = new System.Drawing.Point(9, 3);
+            this.DateTimePicker1.Name = "DateTimePicker1";
+            this.DateTimePicker1.Size = new System.Drawing.Size(217, 23);
+            this.DateTimePicker1.TabIndex = 2;
+            this.DateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
             // 
-            // TabControl1
+            // TabHistory
             // 
-            this.TabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.TabControl1.Controls.Add(this.tabAddProgress);
-            this.TabControl1.Controls.Add(this.tabShowHistory);
-            this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabControl1.Location = new System.Drawing.Point(0, 0);
-            this.TabControl1.Name = "TabControl1";
-            this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(774, 441);
-            this.TabControl1.TabIndex = 3;
-            this.TabControl1.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
+            this.TabHistory.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.TabHistory.Controls.Add(this.TabAddProgress);
+            this.TabHistory.Controls.Add(this.tabShowHistory);
+            this.TabHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabHistory.Location = new System.Drawing.Point(0, 0);
+            this.TabHistory.Name = "TabHistory";
+            this.TabHistory.SelectedIndex = 0;
+            this.TabHistory.Size = new System.Drawing.Size(774, 441);
+            this.TabHistory.TabIndex = 3;
+            this.TabHistory.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
             // 
-            // tabAddProgress
+            // TabAddProgress
             // 
-            this.tabAddProgress.Controls.Add(this.InsertProgress);
-            this.tabAddProgress.Controls.Add(this.richTextBox1);
-            this.tabAddProgress.Controls.Add(this.dateTimePicker1);
-            this.tabAddProgress.Location = new System.Drawing.Point(4, 27);
-            this.tabAddProgress.Name = "tabAddProgress";
-            this.tabAddProgress.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAddProgress.Size = new System.Drawing.Size(766, 410);
-            this.tabAddProgress.TabIndex = 0;
-            this.tabAddProgress.Text = "Add";
-            this.tabAddProgress.UseVisualStyleBackColor = true;
+            this.TabAddProgress.Controls.Add(this.InsertProgress);
+            this.TabAddProgress.Controls.Add(this.richTextBox1);
+            this.TabAddProgress.Controls.Add(this.DateTimePicker1);
+            this.TabAddProgress.Location = new System.Drawing.Point(4, 27);
+            this.TabAddProgress.Name = "TabAddProgress";
+            this.TabAddProgress.Padding = new System.Windows.Forms.Padding(3);
+            this.TabAddProgress.Size = new System.Drawing.Size(766, 410);
+            this.TabAddProgress.TabIndex = 0;
+            this.TabAddProgress.Text = "Add";
+            this.TabAddProgress.UseVisualStyleBackColor = true;
             // 
             // InsertProgress
             // 
@@ -80,7 +82,7 @@ namespace ProgressKeeper
             this.InsertProgress.TabIndex = 4;
             this.InsertProgress.Text = "Insert";
             this.InsertProgress.UseVisualStyleBackColor = true;
-            this.InsertProgress.Click += new System.EventHandler(this.Button1_Click);
+            this.InsertProgress.Click += new System.EventHandler(this.InsertButton_Click);
             // 
             // richTextBox1
             // 
@@ -106,23 +108,24 @@ namespace ProgressKeeper
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(774, 441);
-            this.Controls.Add(this.TabControl1);
+            this.Controls.Add(this.TabHistory);
             this.MinimumSize = new System.Drawing.Size(400, 240);
             this.Name = "MainForm";
             this.Text = "Progress Keeper";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
-            this.TabControl1.ResumeLayout(false);
-            this.tabAddProgress.ResumeLayout(false);
+            this.TabHistory.ResumeLayout(false);
+            this.TabAddProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker DateTimePicker1;
         private System.Windows.Forms.TabControl TabControl1;
-        private System.Windows.Forms.TabPage tabAddProgress;
+        private System.Windows.Forms.TabPage TabAddProgress;
+        private System.Windows.Forms.TabControl TabHistory;
         private System.Windows.Forms.TabPage tabShowHistory;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button InsertProgress;

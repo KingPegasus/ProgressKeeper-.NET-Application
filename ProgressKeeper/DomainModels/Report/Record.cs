@@ -1,11 +1,14 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProgressKeeper.DomainModels.Record
+namespace ProgressKeeper.DomainModels.Report
 {
+    [BsonIgnoreExtraElements]
     public class Record
     {
+
         /// <summary>
         /// The progress of the day.
         /// </summary>

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using ProgressKeeper.DomainModels.Report;
 
 namespace ProgressKeeper.Services.DatabaseAccess
 {
@@ -88,6 +89,23 @@ namespace ProgressKeeper.Services.DatabaseAccess
         }
 
         /// <summary>
+        /// Updates signal Value of the Signal Message in MongoDB Document
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="record"></param>
+        public UpdateResult UpdateSignalValue(string table, Record record)
+        {
+            
+            var collection = _db.GetCollection<Record>(table);
+            var filter = Builders<Record>.Filter.Eq("WorkDate", record.WorkDate);
+            var update = Builders<Record>.Update.Set("Progress", record.Progress);
+
+            UpdateResult result = collection.UpdateOne(filter, update);
+
+            return result;
+        }
+
+        /// <summary>
         /// Watches the update in database collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -127,6 +145,24 @@ namespace ProgressKeeper.Services.DatabaseAccess
         }
 
         /// <summary>
+        /// Get the Document filtered by Date.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="table">MongoDB Collection Name</param>
+        /// <param name="dateTime">Date to be used to filter Document</param>
+        /// <returns></returns>
+        public T GetDocumentByDate<T>(string table, DateTime dateTime)
+        {
+            var collection = _db.GetCollection<T>(table);
+            var filter = Builders<T>.Filter.Eq("WorkDate", dateTime);
+
+            var document = collection.Find(filter).FirstOrDefault();
+
+            return document;
+        }
+
+
+        /// <summary>
         /// Add data recieve callback.
         /// </summary>
         /// <param name="callback"></param>
@@ -134,5 +170,7 @@ namespace ProgressKeeper.Services.DatabaseAccess
         {
             updateReceiveCallback = callback;
         }
+
+
     }
 }
