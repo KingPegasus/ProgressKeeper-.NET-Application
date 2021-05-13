@@ -7,12 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MongoDB.Driver;
+using ProgressKeeper.DomainModels.Record;
+using ProgressKeeper.Services.DatabaseAccess;
 
 namespace ProgressKeeper
 {
     public partial class MainForm : Form
     {
         Size mainFormLastSize;
+
+        
+        static IDatabaseAccess DatabaseAccessLayer;
+        static readonly string tableName = "Records";
         public MainForm()
         {
             InitializeComponent();
@@ -21,19 +28,33 @@ namespace ProgressKeeper
         private void Form1_Load(object sender, EventArgs e)
         {
             mainFormLastSize = this.Size;
+            DatabaseAccessLayer = new DatabaseAccess();
+            DatabaseAccessLayer.GetDatabase("ProgressKeeperDB");
+            /*var dbList = mongoClient.ListDatabases().ToList();
+            foreach ( var db in dbList)
+            {
+                richTextBox1.Text += db;
+            }*/
+
+            
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-
+            Record newRecord = new Record
+            {
+                WorkDate = dateTimePicker1.Value,
+                Progress = richTextBox1.Text
+            };
+            DatabaseAccessLayer.InsertRecord<Record>(tableName, newRecord);
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void FlowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -49,7 +70,7 @@ namespace ProgressKeeper
             int mainFormCurrentHeight= this.Size.Height;
 
             // Checks if the Tab "Add" is selected
-            if(tabControl1.SelectedTab == tabAddProgress)
+            if(TabControl1.SelectedTab == tabAddProgress)
             {
                 // Getting change in Main Form size
                 int changeInWidth = mainFormLastSize.Width - mainFormCurrentWidth;
