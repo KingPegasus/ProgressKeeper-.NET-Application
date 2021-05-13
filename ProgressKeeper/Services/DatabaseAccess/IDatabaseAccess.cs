@@ -1,4 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using ProgressKeeper.DomainModels.Report;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,7 +28,7 @@ namespace ProgressKeeper.Services.DatabaseAccess
         /// Watches the update in database collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="table"></param>
+        /// <param name="table">MongoDB Collection Name</param>
         /// <returns></returns>
         public Task WatchCollectionAsync<T>(string table);
 
@@ -34,7 +36,7 @@ namespace ProgressKeeper.Services.DatabaseAccess
         /// Insert Record in the collection(table)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="table"></param>
+        /// <param name="table">MongoDB Collection Name</param>
         /// <param name="record"></param>
         public void InsertRecord<T>(string table, T record);
 
@@ -43,6 +45,22 @@ namespace ProgressKeeper.Services.DatabaseAccess
         /// </summary>
         /// <param name="table"></param>
         public void DropCollection(string table);
+
+        /// <summary>
+        /// Get the Document filtered by Date.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="table">MongoDB Collection Name</param>
+        /// <param name="dateTime">Date to be used to filter Document</param>
+        /// <returns></returns>
+        public T GetDocumentByDate<T>(string table, DateTime dateTime);
+
+        /// <summary>
+        /// Updates signal Value of the Signal Message in MongoDB Document
+        /// </summary>
+        /// <param name="table">MongoDB Collection Name</param>
+        /// <param name="record"></param>
+        public UpdateResult UpdateSignalValue(string table, Record record);
 
         /// <summary>
         /// Add Update receive callback

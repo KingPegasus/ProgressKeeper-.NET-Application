@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MongoDB.Driver;
-using ProgressKeeper.DomainModels.Record;
+using ProgressKeeper.DomainModels.Report;
 using ProgressKeeper.Services.DatabaseAccess;
 
 namespace ProgressKeeper
@@ -16,27 +16,39 @@ namespace ProgressKeeper
     public partial class MainForm : Form
     {
         Size mainFormLastSize;
+        Record storedRecord = null;
 
-        
         static IDatabaseAccess DatabaseAccessLayer;
         static readonly string tableName = "Records";
+
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             mainFormLastSize = this.Size;
             DatabaseAccessLayer = new DatabaseAccess();
             DatabaseAccessLayer.GetDatabase("ProgressKeeperDB");
-            /*var dbList = mongoClient.ListDatabases().ToList();
-            foreach ( var db in dbList)
-            {
-                richTextBox1.Text += db;
-            }*/
 
-            
+            // Get Record of current Date
+            try
+            {
+                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Couldn't get the any document");
+            }
+
+            // Show Progress of the Record
+            if (storedRecord != null)
+            {
+                richTextBox1.Text = storedRecord.Progress;
+            }
+
+
         }
 
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -44,14 +56,45 @@ namespace ProgressKeeper
 
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void InsertButton_Click(object sender, EventArgs e)
         {
             Record newRecord = new Record
             {
-                WorkDate = dateTimePicker1.Value,
+                WorkDate = DateTimePicker1.Value.Date,
                 Progress = richTextBox1.Text
             };
-            DatabaseAccessLayer.InsertRecord<Record>(tableName, newRecord);
+
+            // Get Record of current Date
+            try
+            {
+                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Couldn't get the any document");
+            }
+
+            // Insert the progress in the Database
+            try 
+            {
+                // If there is no record for the selected date, Insert the Record
+                // Else Update the record in DB
+                if (storedRecord == null)
+                {
+                    DatabaseAccessLayer.InsertRecord<Record>(tableName, newRecord);
+                }
+                else 
+                {
+                    DatabaseAccessLayer.UpdateSignalValue(tableName, newRecord);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Couldn't store the progress");
+            }
+
+            
         }
 
         private void FlowLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -70,7 +113,7 @@ namespace ProgressKeeper
             int mainFormCurrentHeight= this.Size.Height;
 
             // Checks if the Tab "Add" is selected
-            if(TabControl1.SelectedTab == tabAddProgress)
+            if(TabControl1.SelectedTab == TabAddProgress)
             {
                 // Getting change in Main Form size
                 int changeInWidth = mainFormLastSize.Width - mainFormCurrentWidth;
@@ -94,6 +137,20 @@ namespace ProgressKeeper
             // Updating Main Form Last Size with Current Size
             mainFormLastSize.Width = mainFormCurrentWidth;
             mainFormLastSize.Height = mainFormCurrentHeight;
+        }
+
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date);
+            if (storedRecord != null)
+            {
+                richTextBox1.Text = storedRecord.Progress;
+            }
+            else
+            {
+                richTextBox1.Text = String.Empty;
+            }
+            
         }
     }
 }
