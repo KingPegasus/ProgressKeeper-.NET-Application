@@ -47,7 +47,7 @@ namespace ProgressKeeper
             {
                 richTextBox1.Text = storedRecord.Progress;
             }
-
+            PopulateHistory();
 
         }
 
@@ -151,6 +151,45 @@ namespace ProgressKeeper
                 richTextBox1.Text = String.Empty;
             }
             
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Button newbutt = new Button();
+            newbutt.Visible = true;
+            newbutt.Location= new Point(50,50);
+            newbutt.Anchor = AnchorStyles.Top;
+            TabShowHistory.Controls.Add(newbutt);
+
+        }
+
+        /// <summary>
+        /// Populate History Tab
+        /// </summary>
+        private void PopulateHistory()
+        {
+            // Create a List of HistoryItem 
+            HistoryItem[] historyItems = new HistoryItem[20];
+
+            // clear flowlayout
+            if (flowLayoutPanel1.Controls.Count > 0)
+            {
+                flowLayoutPanel1.Controls.Clear();
+            }
+
+            // add HistoryItems to flowlayout
+            for (int i=0; i < historyItems.Length; i++)
+            {
+                //Update 
+                historyItems[i] = new HistoryItem
+                {
+                    Date = DateTimePicker1.Text,
+                    Progress = "Progressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjabProgressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjabProgressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjabProgressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjab"
+                };
+
+                // add to flowlayout
+                flowLayoutPanel1.Controls.Add(historyItems[i]);
+            }
         }
     }
 }
