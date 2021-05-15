@@ -35,8 +35,10 @@ namespace ProgressKeeper
             this.InsertProgress = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.TabShowHistory = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.TabControl1.SuspendLayout();
             this.TabAddProgress.SuspendLayout();
+            this.TabShowHistory.SuspendLayout();
             this.SuspendLayout();
             // 
             // DateTimePicker1
@@ -94,6 +96,7 @@ namespace ProgressKeeper
             // 
             // TabShowHistory
             // 
+            this.TabShowHistory.Controls.Add(this.flowLayoutPanel1);
             this.TabShowHistory.Location = new System.Drawing.Point(4, 27);
             this.TabShowHistory.Name = "TabShowHistory";
             this.TabShowHistory.Padding = new System.Windows.Forms.Padding(3);
@@ -101,6 +104,15 @@ namespace ProgressKeeper
             this.TabShowHistory.TabIndex = 1;
             this.TabShowHistory.Text = "History";
             this.TabShowHistory.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(760, 404);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -113,10 +125,10 @@ namespace ProgressKeeper
             this.Name = "MainForm";
             this.Text = "Progress Keeper";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.TabControl1.ResumeLayout(false);
             this.TabAddProgress.ResumeLayout(false);
+            this.TabShowHistory.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -125,10 +137,10 @@ namespace ProgressKeeper
         private System.Windows.Forms.DateTimePicker DateTimePicker1;
         private System.Windows.Forms.TabControl TabControl1;
         private System.Windows.Forms.TabPage TabAddProgress;
-        private System.Windows.Forms.TabControl TabHistory;
         private System.Windows.Forms.TabPage TabShowHistory;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button InsertProgress;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
