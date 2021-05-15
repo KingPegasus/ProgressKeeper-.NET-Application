@@ -18,6 +18,9 @@ namespace ProgressKeeper
         Size mainFormLastSize;
         Record storedRecord = null;
 
+        readonly int historyDays = 30;
+        readonly int localTimeZoneOffset = TimeZoneInfo.Local.BaseUtcOffset.Hours;
+
         static IDatabaseAccess DatabaseAccessLayer;
         static readonly string tableName = "Records";
 
@@ -35,7 +38,7 @@ namespace ProgressKeeper
             // Get Record of current Date
             try
             {
-                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date);
+                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date.AddHours(localTimeZoneOffset));
             }
             catch(Exception ex)
             {
@@ -47,27 +50,29 @@ namespace ProgressKeeper
             {
                 richTextBox1.Text = storedRecord.Progress;
             }
-            PopulateHistory();
 
         }
 
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (TabControl1.SelectedTab == TabShowHistory)
+            {
+                PopulateHistory(historyDays);
+            }
         }
 
         private void InsertButton_Click(object sender, EventArgs e)
         {
             Record newRecord = new Record
             {
-                WorkDate = DateTimePicker1.Value.Date,
+                WorkDate = DateTimePicker1.Value.Date.AddHours(localTimeZoneOffset),
                 Progress = richTextBox1.Text
             };
 
             // Get Record of current Date
             try
             {
-                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date);
+                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date.AddHours(localTimeZoneOffset));
             }
             catch (Exception ex)
             {
@@ -95,15 +100,6 @@ namespace ProgressKeeper
             }
 
             
-        }
-
-        private void FlowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void MainForm_ResizeBegin(object sender, EventArgs e)
-        {
         }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
@@ -141,7 +137,14 @@ namespace ProgressKeeper
 
         private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date);
+            // Get Record for the date selected
+            try
+            {
+                storedRecord = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, DateTimePicker1.Value.Date.AddHours(localTimeZoneOffset));
+            }
+            catch { }
+
+            // Display the Progress
             if (storedRecord != null)
             {
                 richTextBox1.Text = storedRecord.Progress;
@@ -153,23 +156,40 @@ namespace ProgressKeeper
             
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Fetch History of Records from the DB
+        /// </summary>
+        /// <param name="days">No. of days from today</param>
+        /// <returns>List of Record fetched</returns>
+        private Record[] FetchHistory(int days)
         {
-            Button newbutt = new Button();
-            newbutt.Visible = true;
-            newbutt.Location= new Point(50,50);
-            newbutt.Anchor = AnchorStyles.Top;
-            TabShowHistory.Controls.Add(newbutt);
+            Record[] records = new Record[days];
+            DateTime dateTime = DateTime.Today.AddHours(localTimeZoneOffset);
 
+            for (int i = 0; i < days; i++)
+            {
+                records[i] = new Record();
+                try
+                {
+                    records[i] = DatabaseAccessLayer.GetDocumentByDate<Record>(tableName, dateTime);
+                }
+                catch { }
+
+                dateTime = dateTime.AddDays(-1);
+            }
+            return records;
         }
 
         /// <summary>
         /// Populate History Tab
         /// </summary>
-        private void PopulateHistory()
+        private void PopulateHistory(int days)
         {
+            // Fetch History from DB
+            Record[] records = FetchHistory(days);
+
             // Create a List of HistoryItem 
-            HistoryItem[] historyItems = new HistoryItem[20];
+            HistoryItem[] historyItems = new HistoryItem[records.Length];
 
             // clear flowlayout
             if (flowLayoutPanel1.Controls.Count > 0)
@@ -180,15 +200,17 @@ namespace ProgressKeeper
             // add HistoryItems to flowlayout
             for (int i=0; i < historyItems.Length; i++)
             {
-                //Update 
-                historyItems[i] = new HistoryItem
+                if (records[i] != null)
                 {
-                    Date = DateTimePicker1.Text,
-                    Progress = "Progressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjabProgressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjabProgressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjabProgressadskjlndkjnasokdnkdajsndkljabsjhgdbbasjkdbkjsbajhdsavbdkjasnkjdnaskhbdkjaskdnl;asknjdkjasbjhdbsjsabjlndbakjsbdkjsbakjbdlkjabslkjdbkjasbkdbkasjbdk;jsabkdn;laksbndkjnsakdbkjbask;bdkabskbd;askbdk;jabsksjadbk;djasbkjdbksajbdkjab"
-                };
-
-                // add to flowlayout
-                flowLayoutPanel1.Controls.Add(historyItems[i]);
+                    //Update 
+                    historyItems[i] = new HistoryItem
+                    {
+                        Date = records[i].WorkDate.ToString("dd MMM yyyy"),
+                        Progress = records[i].Progress
+                    };
+                    // add to flowlayout
+                    flowLayoutPanel1.Controls.Add(historyItems[i]);
+                }
             }
         }
     }

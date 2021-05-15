@@ -43,9 +43,9 @@ namespace ProgressKeeper
             this.LabelDate.AutoSize = true;
             this.LabelDate.Location = new System.Drawing.Point(0, 0);
             this.LabelDate.Name = "LabelDate";
-            this.LabelDate.Size = new System.Drawing.Size(84, 15);
+            this.LabelDate.Size = new System.Drawing.Size(74, 15);
             this.LabelDate.TabIndex = 0;
-            this.LabelDate.Text = "dd MMM yyyy";
+            this.LabelDate.Text = "15 MAY 2021";
             // 
             // splitContainer1
             // 
@@ -55,36 +55,38 @@ namespace ProgressKeeper
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel1.Controls.Add(this.LabelDate);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel2.Controls.Add(this.richTextBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(750, 100);
-            this.splitContainer1.SplitterDistance = 90;
+            this.splitContainer1.Size = new System.Drawing.Size(729, 98);
+            this.splitContainer1.SplitterDistance = 79;
             this.splitContainer1.TabIndex = 1;
             // 
             // richTextBox1
             // 
             this.richTextBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Enabled = false;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox1.Size = new System.Drawing.Size(656, 100);
+            this.richTextBox1.Size = new System.Drawing.Size(646, 98);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
-            this.richTextBox1.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.richTextBox1_ContentsResized);
+            this.richTextBox1.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.RichTextBox1_ContentsResized);
             // 
             // HistoryItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.splitContainer1);
             this.Name = "HistoryItem";
-            this.Size = new System.Drawing.Size(750, 100);
+            this.Size = new System.Drawing.Size(729, 98);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

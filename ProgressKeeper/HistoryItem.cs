@@ -43,9 +43,9 @@ namespace ProgressKeeper
 
         #endregion
 
-        private void richTextBox1_ContentsResized(object sender, ContentsResizedEventArgs e)
+        private void RichTextBox1_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
-            int newHeight = e.NewRectangle.Height + 5;
+            int newHeight = e.NewRectangle.Height + 10;
             ((RichTextBox)sender).Height = newHeight;
             this.Height = newHeight;
         }

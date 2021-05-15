@@ -125,7 +125,6 @@ namespace ProgressKeeper
             this.Name = "MainForm";
             this.Text = "Progress Keeper";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.TabControl1.ResumeLayout(false);
             this.TabAddProgress.ResumeLayout(false);

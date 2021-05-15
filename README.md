@@ -12,6 +12,13 @@ Progress Keeper is a .NET Core Desktop Application for keeping a track of daily 
 - Insert button inside the Add tab stores the text along with the selected date.
 - If the record of the selected date already exists, the Insert button updates the record in DB.
 - When selects the date, it will automatically retrieve the Record from the DB.
+- When selects the History tab, records fetched from DB and displayed.
+
+## User Interface Examples
+- Main Window (Add Tab)
+<img src="ReadmeResources/AddTab.PNG" alt="AddTab" title="AddTab" />
+- History Tab
+<img src="ReadmeResources/HistoryTab.PNG" alt="HistoryTab" title="HistoryTab" />
 
 ## Author Info:
 #### [Muhammad Raza Khalid Saleemi](https://www.linkedin.com/in/muhammad-raza-khalid-saleemi/)
