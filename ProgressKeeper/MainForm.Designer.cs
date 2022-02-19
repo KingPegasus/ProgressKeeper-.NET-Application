@@ -44,9 +44,10 @@ namespace ProgressKeeper
             // DateTimePicker1
             // 
             this.DateTimePicker1.CustomFormat = "";
-            this.DateTimePicker1.Location = new System.Drawing.Point(9, 3);
+            this.DateTimePicker1.Location = new System.Drawing.Point(10, 4);
+            this.DateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.DateTimePicker1.Name = "DateTimePicker1";
-            this.DateTimePicker1.Size = new System.Drawing.Size(217, 23);
+            this.DateTimePicker1.Size = new System.Drawing.Size(247, 27);
             this.DateTimePicker1.TabIndex = 2;
             this.DateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
             // 
@@ -57,9 +58,10 @@ namespace ProgressKeeper
             this.TabControl1.Controls.Add(this.TabShowHistory);
             this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl1.Location = new System.Drawing.Point(0, 0);
+            this.TabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TabControl1.Name = "TabControl1";
             this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(774, 441);
+            this.TabControl1.Size = new System.Drawing.Size(885, 588);
             this.TabControl1.TabIndex = 3;
             this.TabControl1.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
             // 
@@ -68,19 +70,21 @@ namespace ProgressKeeper
             this.TabAddProgress.Controls.Add(this.InsertProgress);
             this.TabAddProgress.Controls.Add(this.richTextBox1);
             this.TabAddProgress.Controls.Add(this.DateTimePicker1);
-            this.TabAddProgress.Location = new System.Drawing.Point(4, 27);
+            this.TabAddProgress.Location = new System.Drawing.Point(4, 32);
+            this.TabAddProgress.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TabAddProgress.Name = "TabAddProgress";
-            this.TabAddProgress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabAddProgress.Size = new System.Drawing.Size(766, 410);
+            this.TabAddProgress.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.TabAddProgress.Size = new System.Drawing.Size(877, 552);
             this.TabAddProgress.TabIndex = 0;
             this.TabAddProgress.Text = "Add";
             this.TabAddProgress.UseVisualStyleBackColor = true;
             // 
             // InsertProgress
             // 
-            this.InsertProgress.Location = new System.Drawing.Point(689, 376);
+            this.InsertProgress.Location = new System.Drawing.Point(787, 500);
+            this.InsertProgress.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.InsertProgress.Name = "InsertProgress";
-            this.InsertProgress.Size = new System.Drawing.Size(69, 23);
+            this.InsertProgress.Size = new System.Drawing.Size(79, 31);
             this.InsertProgress.TabIndex = 4;
             this.InsertProgress.Text = "Insert";
             this.InsertProgress.UseVisualStyleBackColor = true;
@@ -88,19 +92,21 @@ namespace ProgressKeeper
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(9, 36);
+            this.richTextBox1.Location = new System.Drawing.Point(10, 48);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(674, 363);
+            this.richTextBox1.Size = new System.Drawing.Size(770, 483);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
             // TabShowHistory
             // 
             this.TabShowHistory.Controls.Add(this.flowLayoutPanel1);
-            this.TabShowHistory.Location = new System.Drawing.Point(4, 27);
+            this.TabShowHistory.Location = new System.Drawing.Point(4, 32);
+            this.TabShowHistory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TabShowHistory.Name = "TabShowHistory";
-            this.TabShowHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.TabShowHistory.Size = new System.Drawing.Size(766, 410);
+            this.TabShowHistory.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.TabShowHistory.Size = new System.Drawing.Size(877, 552);
             this.TabShowHistory.TabIndex = 1;
             this.TabShowHistory.Text = "History";
             this.TabShowHistory.UseVisualStyleBackColor = true;
@@ -109,19 +115,21 @@ namespace ProgressKeeper
             // 
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 4);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(760, 404);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(871, 544);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(774, 441);
+            this.ClientSize = new System.Drawing.Size(885, 588);
             this.Controls.Add(this.TabControl1);
-            this.MinimumSize = new System.Drawing.Size(400, 240);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(455, 304);
             this.Name = "MainForm";
             this.Text = "Progress Keeper";
             this.Load += new System.EventHandler(this.MainForm_Load);
